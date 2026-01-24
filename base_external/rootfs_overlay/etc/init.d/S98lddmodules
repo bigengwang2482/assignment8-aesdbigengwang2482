@@ -7,12 +7,14 @@ case "$1" in
 		scull_load
 		module_load faulty
 		modprobe hello.ko
+		modprobe aesdchar.ko
 		;;
 	stop)
 		echo "Stopping ldd drivers"
 		scull_unload
 		module_unload faulty
 		rmmod hello.ko
+		rmmod aesdchar.ko	
 		;;
 	*)
 		echo "Usage: $0 {start|stop}"

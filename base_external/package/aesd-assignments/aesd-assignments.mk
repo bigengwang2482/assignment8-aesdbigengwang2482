@@ -6,17 +6,18 @@
 ##############################################################
 
 #TODO: Fill up the contents below in order to reference your assignment 3 git contents
-AESD_ASSIGNMENTS_VERSION = '1c4ac9d6008706d9ed0bb3d6cbda4404bbb0b8ea'
+AESD_ASSIGNMENTS_VERSION = '4b46f8f2c5738aabedb543ff62b7f79eaea50f8a'
 # Note: Be sure to reference the *ssh* repository URL here (not https) to work properly
 # with ssh keys and the automated build/test system.
 # Your site should start with git@github.com:
-AESD_ASSIGNMENTS_SITE = 'git@github.com:bigengwang2482/assignment3-aesdbigengwang2482-.git'
+AESD_ASSIGNMENTS_SITE = 'git@github.com:bigengwang2482/assignment3-aesdbw-later.git'
 AESD_ASSIGNMENTS_SITE_METHOD = git
 AESD_ASSIGNMENTS_GIT_SUBMODULES = YES
 
 define AESD_ASSIGNMENTS_BUILD_CMDS
 	$(MAKE) $(TARGET_CONFIGURE_OPTS) -C $(@D)/finder-app all
 	$(MAKE) $(TARGET_CONFIGURE_OPTS) -C $(@D)/server all
+	$(MAKE) $(TARGET_CONFIGURE_OPTS) -C $(@D)/aesd-char-driver
 endef
 
 # TODO add your writer, finder and finder-test utilities/scripts to the installation steps below
@@ -29,6 +30,8 @@ define AESD_ASSIGNMENTS_INSTALL_TARGET_CMDS
 	$(INSTALL) -m 0755 $(@D)/finder-app/finder-test.sh $(TARGET_DIR)/bin
 	$(INSTALL) -m 0755 $(@D)/server/aesdsocket $(TARGET_DIR)/usr/bin
 	$(INSTALL) -m 0755 $(@D)/server/aesdsocket-start-stop $(TARGET_DIR)/etc/init.d/S99aesdsocket
+	$(INSTALL) -m 0755 $(@D)/aesd-char-driver/aesdchar.ko $(TARGET_DIR)/usr/bin
 endef
 
+$(eval $(kernel-module))
 $(eval $(generic-package))
